@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <style>
+  .v-enter, .v-leave-to{
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  .v-enter-active, .v-leave-active{
+    transition: all 0.5s;
+  }
+  </style>
+</head>
+<body>
+<div id="app">
+  <input type="button" value="注册" @click="variable='register'">
+  <input type="button" value="登录" @click="variable='login'">
+  <transition mode="out-in">
+    <component :is="variable"></component>
+  </transition>
+</div>
+<template id="register">
+  <h1>注册列表</h1>
+</template>
+<template id="login">
+  <h1>登录列表</h1>
+</template>
+</body>
+<script>
+new Vue({
+  el:'#app',
+  data:{
+    variable:'register'
+  },
+  components:{
+    register:{
+      template:'#register'
+    },
+    login:{
+      template:'#login'
+    }
+  }
+})
+</script>
+</html>

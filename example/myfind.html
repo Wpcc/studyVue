@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+Array.prototype.myfind = function(callback){
+  for(var i=0;i<this.length;i++){
+    console.log(callback(this[i]))
+    if(callback(this[i])){
+      return this[i];
+    }
+  }
+}
+Array.prototype.myfindIndex = function(callback){
+  for(var i=0;i<this.length;i++){
+
+  }
+}
+var arr = [5,10,15,20];
+var found = arr.myfind(function(el){
+  return el == 10;
+})
+console.log(found);
+</script>
+</body>
+</html>

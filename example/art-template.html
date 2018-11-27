@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./template-web.js"></script>
+</head>
+<body>
+<div></div>
+</body>
+<script id="test" type="artTemplate">
+<ul>
+  <li><%=list[0]%></li>
+  <li><%=list[1]%></li>
+  <li><%=list[2]%></li>
+</ul>
+</script>
+<script>
+  var oDiv = document.querySelector('div');
+  // 模拟数据
+  var data = {
+    list:['第一项','第二项','第三项']
+  }
+  // 将数据与模板结合
+  oDiv.innerHTML = template('test',data);
+</script>
+</html>

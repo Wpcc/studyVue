@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click='show()'>获取子组件的值</button>
+    <tem ref='child'></tem>
+  </div>
+  <template id="myTem">
+    <h1>{{ msg }}</h1>
+  </template>
+</body>
+<script>
+var vm = new Vue({
+  el:'#app',
+  components:{
+    tem:{
+      data:function(){
+        return {
+          msg:'i am son'
+        }
+      },
+      template:'#myTem',
+    }
+  },
+  methods:{
+    show(){
+      console.log(this.$refs.child.msg);
+    }
+  }
+})
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-com :msg="msg" @son-change='change'></my-com>
+  </div>
+  <template id="myTem">
+    <h1  @click='show()'>{{ msg }}</h1>
+  </template>
+</body>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:'i am parents'
+    },
+    methods:{
+      change(data){
+        this.msg = data
+      }
+    },
+    components:{
+      myCom:{
+        data:function(){
+          return {
+            content:'i am son'
+          }
+        },
+        props:['msg'],
+        template:'#myTem',
+        methods:{
+          show(){
+            this.$emit('son-change',this.content);
+            console.log('hello')
+          }
+        }
+      }
+    }
+  })
+</script>
+</html>

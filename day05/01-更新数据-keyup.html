@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model='firstName' @keyup='addName'>+
+    <input type="text" v-model='lastName' @keyup='addName'>=
+    <input type="text" v-model='fullName'>
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      firstName:'',
+      lastName:'',
+      fullName:''
+    },
+    methods:{
+      addName(){
+        this.fullName = this.firstName + this.lastName
+      }
+    }
+  })
+</script>
+</html>

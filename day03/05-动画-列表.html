@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <style>
+    li{
+      list-style:none;
+      border:1px solid #ccc;
+      margin:5px;
+      padding-left:5px;
+      width:100%;
+    }
+    li:hover{
+      background:pink;
+    }
+    .v-enter,.v-leave-to{
+      opacity:0;
+      transform:translateY(20px);
+    }
+    .v-enter-active,.v-leave-active{
+      transition:all .5s;
+    }
+    .v-move{
+      transition:all .5s;
+    }
+    .v-leave-active{
+      position:absolute;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+<label>
+  ID:
+  <input type="text" placeholder="输入id" v-model='id'>
+</label>
+<label>
+  Name:
+  <input type="text" placeholder="输入姓名" v-model='name'>
+</label>
+<input type="button" value="添加" @click="add()">
+<ul>
+  <transition-group>
+    <li v-for="(item,index) in list" :key="item.id" @click=del(index)>{{ item.id }}---{{ item.name }}</li>
+  </transition-group>
+</ul>
+</div>
+</body>
+<script>
+  new Vue({
+    el:'#app',
+    data:{
+      id:'',
+      name:'',
+      list:[
+        {id:'1',name:'刘备'},
+        {id:'2',name:'曹操'},
+        {id:'3',name:'孙权'},
+        {id:'4',name:'袁绍'},
+      ]
+    },
+    methods:{
+      add(){
+        this.list.push({id:this.id,name:this.name});
+        this.id = this.name = ''
+      },
+      del(index){
+        this.list.splice(index,1);
+      }
+    }
+  })
+</script>
+</html>

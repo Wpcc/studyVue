@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <input type="button" value="切换" @click='flag = !flag'>
+  <register v-if='flag'></register>
+  <login v-else='flag'></login>
+</div>
+<template id="register">
+  <h1>注册列表</h1>
+</template>
+<template id="login">
+  <h1>登录列表</h1>
+</template>
+</body>
+<script>
+var vm = new Vue({
+  el:'#app',
+  data:{
+    flag:true
+  },
+  components:{
+    register:{
+      template:'#register'
+    },
+    login:{
+      template:'#login'
+    }
+  }
+})
+</script>
+</html>

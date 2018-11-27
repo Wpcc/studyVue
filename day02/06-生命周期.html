@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click='change()'>change</button>
+    <p id="p">{{ msg }}</p>
+  </div>
+</body>
+<script>
+var vm = new Vue({
+  el:'#app',
+  data:{
+    msg:'hello'
+  },
+  methods:{
+    change(){
+      this.msg = 'world'
+    }
+  },
+  created:function(){
+    console.log("created:" + document.getElementById('p').innerHTML)
+  },
+  mounted:function(){
+    console.log("mounted:" + document.getElementById('p').innerHTML)
+  },
+  beforeUpdate:function(){
+    console.log("beforeUpdate:" + document.getElementById('p').innerHTML)
+  },
+  updated:function(){
+    console.log("updated:" + document.getElementById('p').innerHTML)
+  }
+})
+</script>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.css">
+  <style>
+    form{
+      margin-bottom:10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <form-temp @fa-handle='changeData'></form-temp>
+    <ul class="list-group">
+      <li class="list-group-item" v-for='item in lists'>
+        <span class="badge">评论人:{{ item.name }}</span>
+        {{ item.content }}
+      </li>
+    </ul>
+  </div>
+</body>
+<template id='form-temp'>
+  <form action="">
+    <div class="form-group">
+      <label for="name">姓名：</label>
+      <input type="text" id="name" class="form-control" v-model="name">
+    </div>
+    <div class="form-group">
+      <label for="content">内容：</label>
+      <textarea name="name" id="content" class="form-control" v-model="content"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" @click.prevent='submit'>提交</button>
+  </form>
+</template>
+<script>
+var vm = new Vue({
+  el:'#app',
+  data:{
+    lists:[
+    {id:Date.now(),name:'李白',content:'天生我材必有用'},
+    {id:Date.now(),name:'白居易',content:'野火烧不尽'},
+    {id:Date.now(),name:'杜甫',content:'朱门酒肉臭路有冻死骨'}
+    ]
+  },
+  created(){
+    var msg = localStorage.getItem('msg');
+    var arrMsg = JSON.parse(msg);
+    this.lists = arrMsg;
+  },
+  methods:{
+    changeData(data){
+      console.log(data);
+      this.lists = data;
+    }
+  },
+  components:{
+    formTemp:{
+      data:function(){
+        return {
+          name:'',
+          content:''
+        }
+      },
+      template:'#form-temp',
+      methods:{
+        submit(){
+          console.log(this.name+':'+this.content);
+          var msg = {id:Date.now(),name:this.name,content:this.content};
+          /*
+            1.查看localStorage中 msg key值是否存在
+                由于key值中的值是字符串需要用JSON.stringify转换
+                  但是stringify转换的值必须是存在的值，不能是undefined或null
+           */
+          var oldMsg = localStorage.getItem('msg') || '[]';
+          var arrMsg = JSON.parse(oldMsg);
+          arrMsg.unshift(msg);
+          localStorage.setItem('msg',JSON.stringify(arrMsg));
+
+          /*
+            2.将修改后的数据，也就是存进storage的数据，分发一份给父组件，让父组件更新data进而进行视图更新
+          */
+          this.$emit('fa-handle',arrMsg);
+          console.log('submit')
+        },
+      }
+    }
+  }
+})
+</script>
+</html>

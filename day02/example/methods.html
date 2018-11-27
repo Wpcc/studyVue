@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <p v-text='name()'></p>
+</div>
+</body>
+<!-- 在Vue框架中，方法和属性是不允许同名的，因为属性和方法最终都会挂载在Vue对象上 -->
+<script>
+var vm = new Vue({
+    el:"#app",
+    data:{
+      name1:'wpc'
+    },
+    methods:{
+      name(){
+        return 'ryq';
+      }
+    }
+  })
+</script>
+</html>

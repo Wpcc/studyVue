@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <p v-bind:hello="isButtonDisabled">button</p>
+</div>
+</body>
+<script>
+  /*
+  当v-bind绑定的属性值为null/undefiend/false 该属性不会被渲染出来
+   */
+  new Vue({
+    el:'#app',
+    data:{
+      msg:'hello vue!',
+      isButtonDisabled:false
+    }
+  })
+</script>
+</html>

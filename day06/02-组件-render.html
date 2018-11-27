@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p>hello world</p>
+  </div>
+</body>
+<script>
+  const login = {
+    template:'<h1>this is a login component</h1>'
+  }
+  var vm = new Vue({
+    el:'#app',
+    render:function(createElements){
+      return createElements(login);
+    }
+  })
+</script>
+</html>

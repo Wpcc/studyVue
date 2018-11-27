@@ -1,0 +1,9 @@
+ul,li{
+  list-style: none;
+}
+.imgBox{
+  width:200px;
+  height: 110px;
+  background: url('../imgs/timg.jpg');
+  background-size: cover;
+}

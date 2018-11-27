@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <script type="text/javascript" src="/node_modules/vue/dist/vue.js"></script>
+    <script src="/node_modules/vue-resource/dist/vue-resource.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div id="app">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">Panel title</h3>
+      </div>
+      <div class="panel-body">
+        <form class="form-inline">
+          <div class="form-group">
+            <label>
+              License:
+              <input type="text" class="form-control" placeholder="请输入顺序id" v-model='license'>
+            </label>
+            <label>
+              Name:
+              <input type="text" class="form-control" placeholder="请输入车名" v-model='name'>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-default" @click.prevent='addCars()'>添加</button>
+        </form>
+      </div>
+    </div>
+    <table class="table table-hover table-bordered">
+      <thead>
+        <th>license</th>
+        <th>Name</th>
+        <th>Ctime</th>
+        <th>Opearation</th>
+      </thead>
+      <tbody v-for="item in carList">
+        <td>{{ item.license }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.Ctime }}</td>
+        <td @click='delCars(item._id)'>{{ item.operation }}</td>
+      </tbody>
+    </table>
+  </div>
+  </body>
+  <script>
+    new Vue({
+      el:'#app',
+      data:{
+        license:'',
+        name:'',
+        carList:[
+          {name:'宝马',Ctime:new Date(),operation:'删除'},
+        ]
+      },
+      methods:{
+        getAllList(){
+          this.$http.get('/retCars').then(res =>{
+            console.log(res.body)
+            this.carList = res.body;
+          },err =>{
+            console.log(err);
+          })
+        },
+        delCars(id){
+          this.$http.post('/delCars',{id:id}).then(res => {
+            if(res.body.status == 'ok'){
+              this.getAllList();
+            }
+          },err => {
+            throw(err);
+          })
+        },
+        addCars(){
+          this.$http.post('/addCars',{license:this.license,name:this.name,Ctime:new Date(),operation:'删除'}).then(res => {
+            if(res.body.status == 'ok'){
+              this.getAllList();
+            }
+          },err => {
+            throw(err);
+          })
+        }
+      },
+      // 在vue实例生命周期创建data的时候，和后台交互拿到数据，并传给vue数据中心，利用插件axios
+      created:function(){
+        this.getAllList();
+      }
+    })
+  </script>
+</html>
