@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./01-plugin.js"></script>
+</head>
+<body>
+<div id="app">
+  <!-- 3. 调用定义的指令 -->
+  <h1 v-my-directive='msg'></h1>
+</div>
+</body>
+<script>
+  // 使用插件： 本质是触发MyPlugin（Vue）方法。将插件上的一些内容悉数挂载到 Vue上
+  Vue.use(MyPlugin);
+  // 1. 调用插件定义的在 Vue 构造函数上的方法
+  Vue.myGlobalMethod();
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:'hello world'
+    }
+  })
+  //2. 调用插件定义在 vm 实例上的方法
+  vm.$myMethod();
+</script>
+</html>

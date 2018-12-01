@@ -9,14 +9,15 @@
 </head>
 <body>
   <div id="app">
-    <h1>{{ msg }}</h1>
-    <input type="text" v-model='msg'>
+    <h1 v-if="show === 1">1</h1>
+    <h1 v-else-if="show === 2">2</h1>
+    <h1 v-else-if="show === 3">3</h1>
   </div>
 <script>
   var vm = new Vue({
     el:'#app',
     data:{
-      msg:'hello'
+      show:2
     }
   })
 </script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="lib/vue/vue.js"></script>
+</head>
+<body>
+<!--
+  案例说明：提供日期过滤器，能够将传递过来的数据转换成日常生活中的三种格式。
+  如：
+    第一种格式： 2018-11-22 08:08:08  y-m-d hh:mm:ss
+    第二种格式： 2018-11-22  y-m-d
+    第三种格式： 08:08:08  hh:mm:ss
+ -->
+ <div id="app">
+   <p>{{ date }}</p>
+   <p>{{ date | dateFormat('y-m-d hh:mm:ss')}}</p>
+ </div>
+</body>
+<script>
+  Vue.filter('dateFormat',function(dateStr,dateTemplate = ''){
+    // 1.根据提供的时间戳创建一个date对象
+    var date = new Date(dateStr)
+    // 2.根据date对象的方法，分别获取到 y m d hh mm ss
+    var y = date.getFullYear()
+    var m = date.getMonth() + 1 //日期是从 0 开始计算
+    var d = date.getDate()
+    // 2.1.需要注意地是时间需要补齐
+    var hh = toDouble(date.getHours())
+    var mm = toDouble(date.getMinutes())
+    var ss = toDouble(date.getSeconds())
+
+    function toDouble(num){
+      if(num.toString() === 1){
+        return num = '0' + num
+      }
+      return num
+    }
+    // 3.0.根据传递参数进行不同格式日期的输出
+    if(dateTemplate.toLowerCase() === 'y-m-d'){
+      return `${y}-${m}-${d}`
+    }
+    else if(dateTemplate.toLowerCase() === 'y-m-d hh:mm:ss'){
+      return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+    }else if(dateTemplate.toLowerCase() === 'hh:mm:ss'){
+      return `${hh}:${mm}:${ss}`
+    }
+  })
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      date:Date.now()
+    }
+  })
+</script>
+</html>

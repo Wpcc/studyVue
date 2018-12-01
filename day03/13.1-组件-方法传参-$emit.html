@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ msg }}</h1>
+    <my-com @callback="change"></my-com>
+  </div>
+  <template id="myTemplate">
+    <div>点击</div>
+  </template>
+</body>
+<script>
+// 看来 this.$emit的内部实现还是很复杂的 并不是单纯的触发事件
+var vm = new Vue({
+  el:'#app',
+  data:{
+    msg:'hello'
+  },
+  methods:{
+    change(val){
+      this.msg = val
+    }
+  },
+  components:{
+    'my-com':{
+      data(){
+        return {
+          msg:'son'
+        }
+      },
+      template:'#myTemplate',
+      // methods:{
+      //   on(){
+      //     this.$emit('callback',this.msg)
+      //   }
+      // }
+      mounted(){
+        this.$emit('callback',this.msg)
+      }
+    }
+  }
+})
+
+</script>
+</html>

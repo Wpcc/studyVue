@@ -146,3 +146,154 @@ module.exports = {
 ```
 
 至于更多配置，通过[官方文档](https://vue-loader.vuejs.org/guide/#manual-configuration) Vue Loader 了解更多具体步骤。
+
+##### 模块中的数据
+
+在浏览器中我们能够设置模板中的数据，在webpack中将模块分离成`.vue`结尾的文件后，依然可以设置模板数据，不过语法上和浏览器是存在差别的，具体语法如下：
+
+```vue
+<template>
+	<h1>
+        {{msg}}
+    </h1>
+</template>
+<script>
+    export default {
+        //组件中的数据是一个返回函数
+        data(){
+            return{
+                msg:'hello world'
+            }
+        },
+        methods:{
+            
+        }
+    }
+</script>
+<style></style>
+```
+
+以上是用ES6语法定义的模块接口，你也可以通过node中的模块定义接口，ES6中的模块导出更像是一个标识符，而node中的模块则如同一个导出对象。
+
+```javascript
+//ES6模块接口
+//导入
+import login from 'login'
+//导出
+export default  = {}；//导出默认对象
+
+//node模块接口
+//导入
+var login = require('login')
+//导出
+module.exports = {}；
+```
+
+#### vue路由
+
+安装：
+
+```shell
+npm i vue-router
+```
+
+使用，将路由挂载到vue实例中：
+
+```javascript
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+```
+
+案例：
+
+- 比如同时有一个入口文件`main.js`和三个模块文件`app.vue`、`login.vue`和`register.vue`，需要用路由显示`login.vue`和`register.vue`模块。
+
+```vue
+<!-- app.vue  主模块，通过render替换页面DOM-->
+<template lang="html">
+  <div class="">
+    <h1>{{ msg }}</h1>
+    <router-link to="/login">login</router-link>
+    <router-link to="/register">register</router-link>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  data(){
+    return {
+      msg:'App路由模块'
+    }
+  },
+}
+</script>
+
+<style lang="css">
+</style>
+```
+
+```vue
+<!--login.vue-->
+<template>
+  <div>这是login组件</div>
+</template>
+<script>
+</script>
+<style></style>
+
+```
+
+```vue
+<!--register.vue-->
+<template>
+  <div>这是register组件</div>
+</template>
+<script>
+</script>
+<style></style>
+```
+
+```javascript
+//main.js  入口函数
+// 引入vue
+import Vue from 'vue';
+import VueRouter from 'vue-router'
+
+import app from './app.vue'
+import login from './main/login.vue'
+import register from './main/register.vue'
+
+Vue.use(VueRouter)
+
+var router = new VueRouter({
+  routes:[
+    {path:'/login',component:login},
+    {path:'/register',component:register},
+  ]
+})
+new Vue({
+  el:'#app',
+  render(c){
+    return c(app);
+  },
+  router
+})
+
+```
+
+#### 单文件组件
+
+单文件组件也就是在外部定义的以`.vue`结尾的文件。通过[官方文档](https://cn.vuejs.org/v2/guide/single-file-components.html)你可以了解更多详细内容。
+
+- template
+  - 通过参数lang能够定义html模板
+- script
+  - 主要是javascript语言
+- style
+  - 通过参数lang定义语法内容，究竟是css/less/scss
+  - 通过scoped可以定义样式的作用域
+
+具体代码通过day06.2查看。

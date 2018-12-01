@@ -9,16 +9,24 @@
 </head>
 <body>
 <div id="app">
-  <my-com></my-com>
+  <div @callback='change'>{{ msg }}</div>
 </div>
 </body>
-<script>
-Vue.component('my-com',{
-  template:'<h1>hello world</h1>'
-})
+<script type="text/javascript">
+// this.$emit 其实是触发一个自定义事件
 var vm = new Vue({
-  el:'#app'
+  el:'#app',
+  data:{
+    msg:'hello'
+  },
+  methods:{
+    change(){
+      this.msg = 'world'
+    }
+  },
+  mounted(){
+    this.$emit('callback','hello')
+  }
 })
-console.log()
 </script>
 </html>

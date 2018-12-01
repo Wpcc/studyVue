@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="a">
+  <span id="b"></span>
+</body>
+<script>
+  /*
+  数据的双向绑定，在更改vue实例内容的时候，同时更改view层中的界面
+  */
+  var vue = {};
+  Object.defineProperty(vue,'hello',{
+    set:function(newVal){
+      document.getElementById('a').value = newVal;
+      document.getElementById('b').innerHTML = newVal;
+    }
+  });
+  document.getElementById('a').addEventListener('keyup',function(e){
+    vue.hello = this.value;
+  })
+
+  // document.getElementById('a').addEventListener('keyup',function(){
+  //       document.getElementById('a').value = this.value;
+  //       document.getElementById('b').innerHTML = this.value;
+  // })
+</script>
+</html>

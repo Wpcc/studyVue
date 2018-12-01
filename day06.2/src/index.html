@@ -5,20 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="./lib/vue/vue.js"></script>
 </head>
 <body>
 <div id="app">
-  <my-com></my-com>
+  {{ msg }}
 </div>
 </body>
-<script>
-Vue.component('my-com',{
-  template:'<h1>hello world</h1>'
-})
-var vm = new Vue({
-  el:'#app'
-})
-console.log()
-</script>
+
 </html>

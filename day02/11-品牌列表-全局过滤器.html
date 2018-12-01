@@ -56,6 +56,10 @@
 </div>
 </body>
 <script>
+/*
+定义一个全局过滤器，将UTC格式的日期转化成现实中使用的格式
+并且通过给过滤器传参，从而确定转化的格式
+*/
 Vue.filter('dateFormat',function(dateStr,dateTemplate = ''){
     var date = new Date(dateStr);
     var y = date.getFullYear();

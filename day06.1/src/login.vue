@@ -1,5 +1,20 @@
 <template>
-  <div>这是Vue中的模板</div>
+<div>
+  <div>{{ msg }}</div>
+  <son></son>
+</div>
 </template>
-<script></script>
+<script>
+import son from './son.vue'
+export default {
+  data(){
+    return {
+      msg : 'hello wrold'
+    }
+  },
+  components:{
+    son
+  }
+}
+</script>
 <style></style>

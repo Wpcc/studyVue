@@ -13,12 +13,19 @@
 </div>
 </body>
 <script>
-Vue.component('my-com',{
-  template:'<h1>hello world</h1>'
+new Vue({
+  el:'#app',
+  components:{
+    myCom:{
+      // ES6语法 data:function(){}可以简写data(){}
+      data(){
+        return {
+          msg:'hello world'
+        }
+      },
+      template:'<h1>{{ msg }}</h1>'
+    }
+  }
 })
-var vm = new Vue({
-  el:'#app'
-})
-console.log()
 </script>
 </html>

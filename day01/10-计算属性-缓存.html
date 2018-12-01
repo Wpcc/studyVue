@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue.js"></script>
+</head>
+<body>
+  <!--
+      为什么给 msg 赋值 Date.now() 多次访问 msg 值都是一样？
+      这是由于，当vm实例创造出来的时候，就会调用Date.now()函数，将函数的值赋值给 msg.
+      而之后并不调用 Date.now() 函数，故多次渲染到页面，其实数据并没有发生更新变化。
+ -->
+  <div id="app">
+    {{ date }}
+    {{ date }}
+    {{ date }}
+    {{ date }}
+    {{ msg }}
+    {{ msg }}
+    {{ msg }}
+    {{ msg }}
+  </div>
+</body>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:Date.now()
+    },
+    computed:{
+      date(){
+        return Date.now();
+      }
+    }
+  })
+</script>
+</html>
