@@ -24,10 +24,10 @@
     },
     watch:{
       firstName(val){
-        this.fullName = this.firstName + this.lastName
+        this.fullName = val + this.lastName
       },
       lastName(val){
-        this.fullName = this.firstName + this.lastName
+        this.fullName = this.firstName + val
       }
     }
   })

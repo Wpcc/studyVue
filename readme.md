@@ -696,27 +696,42 @@ say('pen')
 
 #### 8.2.模块中的组件
 
-这一章节需要 webpack + node 基础知识。
+这一章节需要 webpack + node + ES6 基础知识。
 
 在项目中，一般都不使用浏览器中的组件定义，而是将组件看成一个模块，在外部定义一个以`.vue`结尾的文件，如 app.vue 文件。
 
 - 浏览器中的组件
 
 ```html
-<div id="#app"></div>
-
+<div id="#app">
+	<my-com></my-com>
+</div>
+<template id="myTemplate">
+    <h1>
+        {{ this.msg }}
+    </h1>
+</template>
 <script>
     var vm = new Vue({
-        
+        el:'#app',
+        components:{
+            'my-com':{
+                data(){
+                    msg:'son'
+                },
+                template:'#myTemplate'
+            }
+        }
     })
 </script>
 ```
 
-
+- 模板中的组件
 
 ```vue
-<!-- vue模板 -->
+<!-- my-com.vue -->
 <template>
+{{ this.msg }}
 </template>
 <script>
     export default {
@@ -727,6 +742,102 @@ say('pen')
         }
     }
 </script>
-<style></style>
+<!-- 
+模块中的组件如果转换成浏览器中的组件，是会相互对应的，如果模块中 script 代码没有内容，大可不必用ES6的模块语法将其导出。
+也就是模块中的 template 会自动转换成浏览器中的 template
+大体的对应，我想应该是这样的
+Vue.component('my-com',{
+	template：<template></template> 内容
+	data：import son from './son.vue'导出的 son.data
+	等等
+})
+-->
+```
+
+
+
+```html
+<!-- index.html -->
+<div id="#app">
+    
+</div>
+```
+
+```vue
+<!-- app.vue -->
+<template>
+	
+</template>
+<script>
+    import myCom from './my-com.vue'
+    export default {
+        components:{
+            myCom
+        }
+    }
+    
+</script>
+```
+
+```javascript
+// main.js  === 其实也就是index.html中 script 标签里的 js 代码
+import Vue from 'vue'
+import app from './app.vue'
+
+var vm = new Vue({
+  el:'#app',
+    render:function(createElement){
+        createElement(app)
+    }
+})
+/* 
+之所以出现这样的语法,原因在于浏览器中引用的完整版的Vue，而模块中引入的是	
+剪切版的Vue，只能通过底层render方法，将管理的DOM区域取代掉
+*/
+```
+
+故模块中的组件分两部分：
+
+- 第一部分即组件本身，也就是上述的 my-com.vue
+- 第二部分浏览器页面的切割，也就是上述的 index.html main.js app.vue
+
+### 9.0.路由
+
+在vue中路由是将url与组件对应起来的工具，也就是通过路由可以实现页面的跳转，即组件的切换。
+
+通常一个路由的创立需要四个步骤
+
+- 创建一个组件
+- 将url路径和显示组件对应起来
+- 创建一个路由实例
+- 将路由实例挂载到vue实例上
+
+```html
+<div id="app">
+    <router-link to='/foo'>Go to Foo</router-link>
+    <router-link to='/bar'>Go to Bar</router-link>
+</div>
+<script>
+    // 1.创建组件
+    var Foo = {
+        template:'this is Foo'
+    }
+    var Bar = {
+        template:'this is Bar'
+    }
+    // 2.对应组件
+    var routes = [
+        {path:'/foo',component:Foo},
+        {path:'/bar',component:Bar},
+    ]
+    // 3.创建VueRouter实例
+    var router = new VueRouter({
+        routes
+    })
+    // 4.将VueRouter挂载到vm实例上
+    var vm = new Vue({
+        router
+    }).$mount('#app')
+</script>
 ```
 

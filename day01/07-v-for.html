@@ -10,7 +10,7 @@
 <body>
   <div id="app">
     <button @click='addNode'>添加</button>
-    <p v-for='item in list' :key="item.id"><input type="checkbox">{{ item.name }}</p>
+    <p v-for='(item, index) in list' :key='index'><input type="checkbox">{{ item.name }}</p>
   </div>
 </body>
 <script>
