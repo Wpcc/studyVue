@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to='/show/1'>点击传递1</router-link>
+    <router-link to='/show/2'>点击传递2</router-link>
+    <router-link to='/show/3'>点击传递3</router-link>
+    <router-view></router-view>
+  </div>
+  <template id="myTemp">
+    <div>{{ msg }}</div>
+  </template>
+</body>
+<script>
+  /*
+    定义一个对象字面量
+  */
+  var show = {
+    template: '#myTemp',
+    data () {
+      return {
+        msg : ''
+      }
+    },
+    watch: {
+      $route(value){
+        this.msg = value.params.id
+      }
+    }
+  }
+  var router = new VueRouter({
+    routes: [
+      {
+        path: '/show/:id', component: show
+      }
+    ]
+  })
+
+  var vm = new Vue({
+    router,
+
+  }).$mount('#app')
+</script>
+</html>

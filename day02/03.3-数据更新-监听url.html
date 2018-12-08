@@ -16,6 +16,7 @@
   </div>
 </body>
 <script>
+// 该页面需要在服务器状态下才能运行
   var register = {
     template:'<h1>注册组件</h1>'
   }
@@ -33,8 +34,6 @@
     data:{
     },
     router,
-    methods:{
-    },
     watch:{
       '$route.path':function(newData){
         console.log(newData);

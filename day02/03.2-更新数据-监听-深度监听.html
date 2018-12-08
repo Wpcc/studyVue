@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <button @click='change'>change</button>
+  <h3>{{ msg }}</h3>
+</div>
+</body>
+<script>
+  // 如果本身对数据进行赋值， 那么再改变person的本质其实和 msg 无法
+  var person = {
+    name:'zhangsan',
+    age:15
+  }
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:window.person.name
+    },
+    methods: {
+      change(){
+        window.person.name = 'lisi'
+      }
+    }
+  })
+</script>
+</html>

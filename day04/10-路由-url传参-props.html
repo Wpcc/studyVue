@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to='/show'>点击传递3</router-link>
+    <router-view :msg='msg'></router-view>
+  </div>
+  <template id="myTemp">
+    <div>{{ msg }}</div>
+  </template>
+</body>
+<script>
+
+  var show = {
+    template: '#myTemp',
+    props: {
+      msg: String
+    }
+  }
+  var router = new VueRouter({
+    routes: [
+      {
+        path: '/show', component: show
+      }
+    ]
+  })
+
+  var vm = new Vue({
+    router,
+    data: {
+      msg: 'hello'
+    }
+  }).$mount('#app')
+</script>
+</html>
