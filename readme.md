@@ -272,7 +272,7 @@ var app2 = new Vue({
 - v-bind:class / v-bind:style
 
   - 用来给DOM节点添加样式
-  - 需要注意地是，当绑定的语法涉及到表达式的时候通常需要传递一个对象，而如果直接使用的是`vue`实例上的值，则只需要写上对应data中的值即可。
+  - 当绑定的属性是一个对象的时候，通常表示后者对前者的一个赋值，如下面的`:class='{red:isActive}'`，该值只能为布尔值。
   - v-bind:class
 
   ```html
@@ -287,7 +287,7 @@ var app2 = new Vue({
   </style>
   <div id="app">
       <!-- 表达式的写法 -->
-      <div :class={red:isActive}>hello</div>
+      <div :class='{red:isActive}'>hello</div>
       <!-- 直接写对应的值 -->
   </div>
   ```
@@ -544,7 +544,82 @@ var vm = new Vue({
 
 ### 8.0.模块
 
-#### 8.1.浏览器中的组件
+#### 组件命名
+
+[官方文档](https://cn.vuejs.org/v2/guide/components-registration.html)
+
+尽管w3c规范中建议自定义组件名（字母全小写且必须包含一个连字符）。但实际上依旧可以通过驼峰式大小写进行命名，并且与html标签名重复也没任何报错。
+
+如：
+
+```html
+import Header from './components/Header.vue
+```
+
+
+
+#### slot插槽
+
+- 默认插槽
+
+```html
+<div id="app">
+  <my-com>这是一个插槽</my-com>
+</div>
+<template id="template">
+  <div>
+    <h1>hello world</h1>
+    <slot></slot>
+  </div>
+</template>
+```
+
+
+
+- 多个插槽
+
+```html
+<div id="app">
+  <my-com>
+    <p slot="one">这是one插槽</p>
+    <p slot="two">这是two插槽</p>
+    <p slot="two">这是two插槽</p>
+  </my-com>
+</div>
+<template id="template">
+  <div>
+    <h1>hello world</h1>
+    <slot name="one"></slot>
+    <slot name="two"></slot>
+  </div>
+</template>
+```
+
+
+
+- 定制插槽
+
+  主要是通过slot让组件具有定制型，在不同的页面展现出不同的样式。
+
+```html
+<div id="app">
+  <my-com>
+    <p slot="one">这是one插槽</p>
+    <p slot="two">这是two插槽</p>
+  </my-com>
+</div>
+<template id="template">
+  <div>
+    <h1>hello world</h1>
+    <slot name="one"></slot>
+    <slot name="two"></slot>
+  </div>
+</template>
+```
+
+
+
+#### 浏览器中的组件
 
 整个视图页面其实是一整块的`html`+`css`+`js`。如果整个页面中有部分页面在其它页面中大量的复用，显然这样会造成工作效率的低下。将局部公用部分的`html`+`css`+`js`抽离出来，于是便是所谓的组件。
 
@@ -599,7 +674,7 @@ Vue.filter('my-filter',function(value){})  // 函数
 Vue.component('my-com',{})  // 对象
 ```
 
-##### 8.1.1.组件传参
+##### 组件传参
 
 既然是一个组件，那么就是一个独立空间，也就是说在这个组件内部可以有自己的数据、有自己方法，有所有 vue 实例有的。
 
@@ -701,7 +776,7 @@ say('pen')
 - 将父组件中的函数传递给该方法
 - 然后通过子组件中的`$this.emit`分发机制触发该方法
 
-##### 8.1.2.内容的传参
+##### 内容的传参
 
 `slot`插槽的意思，在组件中通过`slot`可以将父组件中的内容传递给子组件，具体语法如下：
 
@@ -718,7 +793,7 @@ say('pen')
 
 更详细内容可以参考[官方文档](https://cn.vuejs.org/v2/guide/components-slots.html)。
 
-#### 8.2.模块中的组件
+#### 模块中的组件
 
 这一章节需要 webpack + node + ES6 基础知识。
 
@@ -825,7 +900,7 @@ var vm = new Vue({
 - 第一部分即组件本身，也就是上述的 my-com.vue
 - 第二部分浏览器页面的切割，也就是上述的 index.html main.js app.vue
 
-#### 8.3.传参方法综合
+#### 传参方法综合
 
 - props
 - vue的自定义事件

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 属性的命名规范：属性的命名规范用-来表示-->
+    <tree :tree-data='treeData'></tree>
+  </div>
+  <template id="tree">
+    <ul>
+      <li v-for='item in treeData'>
+        <span>{{ item.title }}</span>
+        <tree v-if='item.children' :tree-data='item.children'></tree>
+      </li>
+    </ul>
+  </template>
+</body>
+<script>
+var vm = new Vue({
+  el:'#app',
+  data:{
+    treeData:[
+      {
+        title:'树形标题一',
+        children:[
+          {
+            title:'子标题1',
+          },
+          {
+            title:'子标题2',
+            children:[
+              {
+                title:'子标题2.1'
+              },
+              {
+                title:'子标题2.2'
+              },
+              {
+                title:'子标题2.3'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  components:{
+    tree:{
+      props:['treeData'],
+      name:'tree',
+      template:'#tree'
+    }
+  }
+})
+/*
+name 的作用是让组件能够自身调用自身从而实现递归遍历，如上所述
+*/
+</script>
+</html>

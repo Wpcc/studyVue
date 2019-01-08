@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <my-com>
+    <p slot="one">这是one插槽</p>
+    <p slot="two">这是two插槽</p>
+    <p slot="two">这是two插槽</p>
+  </my-com>
+</div>
+<template id="template">
+  <div>
+    <h1>hello world</h1>
+    <slot name="one"></slot>
+    <slot name="two"></slot>
+  </div>
+</template>
+</body>
+<script>
+new Vue({
+  el:'#app',
+  components:{
+    myCom:{
+      template:'#template'
+    }
+  }
+})
+</script>
+</html>

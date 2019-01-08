@@ -6,32 +6,31 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <script src="./lib/vue.js"></script>
-  <style>
-  .red{
-    color: red;
-  }
-  </style>
 </head>
 <body>
   <div id="app">
-    <button @click="changeClass">点击</button>
-    <h1 :class="redObj">{{ msg }}</h1>
+    <h3>{{ person.name }}</h3>
+    <button @click='changeData'>change</button>
   </div>
+</body>
 <script>
+  /*
+    这证明数据发生改变的同时，对应的视图也发生改变，不管是不是对象。
+    之所以有这样的疑惑，是因为浅监测无法获悉对象数据的改变。
+  */
   var vm = new Vue({
     el:'#app',
     data:{
-      msg:'hello',
-      redObj:{
-        red:true
+      person:{
+        name:'zs',
+        age:'15'
       }
     },
-    methods: {
-      changeClass () {
-        this.redObj.red = false
+    methods:{
+      changeData(){
+        this.person.name = 'ls'
       }
     }
   })
 </script>
-</body>
 </html>

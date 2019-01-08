@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click='addRoutes'>添加路由</button>
+    <router-link to='/user/wpc'>吴鹏程</router-link>
+    <router-link to='/user/ll'>雷雳</router-link>
+    <router-link to='/user/ryq'>任一青</router-link?
+    <router-view></router-view>
+  </div>
+  <template id="user">
+    <div>hello, i am {{ $route.params.id }}</div>
+  </template>
+</body>
+<script>
+  const user = {
+    template:'#user'
+  }
+  const routes = [
+    {path:'/user/:id',component:user}
+  ]
+  var router = new VueRouter({
+  })
+
+  var vm = new Vue({
+    router,
+    methods:{
+      addRoutes(){
+        this.$router.addRoutes(routes)
+      }
+    }
+  }).$mount('#app')
+</script>
+</html>

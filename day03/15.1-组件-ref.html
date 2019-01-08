@@ -10,29 +10,16 @@
 <body>
   <div id="app">
     <button @click='show()'>获取子组件的值</button>
-    <tem ref='child'></tem>
+    <form ref="child"></form>
   </div>
-  <template id="myTem">
-    <h1>{{ msg }}</h1>
-  </template>
 </body>
 <script>
 // 类似于js中的DOM操作
 var vm = new Vue({
   el:'#app',
-  components:{
-    tem:{
-      data:function(){
-        return {
-          msg:'i am son'
-        }
-      },
-      template:'#myTem',
-    }
-  },
   methods:{
     show(){
-      console.log(this.$refs.child.msg);
+      console.log(this.$refs.child);
     }
   }
 })

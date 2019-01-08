@@ -10,19 +10,22 @@
 </head>
 <body>
   <div id="app">
-    <router-link to='/'>account</router-link>
+    <router-link to='/account'>account</router-link>
     <router-view></router-view>
   </div>
 </body>
 <template id="account">
   <div>
     <h1>这是Acconut组件</h1>
-    <router-link to='/login'>登录</router-link>
-    <router-link to='/register'>注册</router-link>
+    <router-link to='/account/login'>登录</router-link>
+    <router-link to='/account/register'>注册</router-link>
     <router-view></router-view>
   </div>
 </template>
 <script>
+  /*
+    利用重定向实现子组件现实
+  */
   var account = {
     template:'#account'
   }
@@ -35,8 +38,9 @@
   var router = new VueRouter({
     routes:[
       {
-        path:'/',
+        path:'/account',
         component:account,
+        redirect:'/account/login',
         children:[
           {path:'login',component:login},
           {path:'register',component:register}

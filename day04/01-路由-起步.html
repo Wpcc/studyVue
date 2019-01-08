@@ -27,11 +27,13 @@
   //第一步：创建模板字符串
   const foo = {template:'<h1>foo</h1>'}
   const bar = {template:'<h1>bar</h1>'}
+  const error = {template:'<h1>error</h1>'}
   //第二部：创建路由
   var router = new VueRouter({
     routes:[
     {path:'/foo',component:foo},
-    {path:'/bar',component:bar}
+    {path:'/bar',component:bar},
+    {path:'*',component:error}
     ]
   })
   //第三步：与app实例结合

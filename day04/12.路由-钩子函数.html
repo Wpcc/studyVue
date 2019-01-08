@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+  <script src="./lib/vue/vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to='/name01'>吴鹏程</router-link>
+    <router-link to='/name02'>雷雳</router-link>
+    <router-view></router-view>
+  </div>
+  <template id="wpc">
+    <div>hello, i am wpc</div>
+  </template>
+  <template id="ll">
+    <div>hello, i am ll</div>
+  </template>
+</body>
+<script>
+  const wpc = {
+    template:'#wpc'
+  }
+  const ll = {
+    template:'#ll'
+  }
+  var router = new VueRouter({
+    routes: [
+      {
+        path: '/name01', component: wpc
+      },
+      {
+        path: '/name02', component: ll
+      }
+    ]
+  })
+  // 钩子函数
+  router.beforeEach((to,from,next) => {
+    if(to.path === '/name02'){
+      next({path : '/'})
+    }
+    next()
+    console.log(`${to.path} and ${from.path}`)
+  })
+
+  var vm = new Vue({
+    router
+
+  }).$mount('#app')
+</script>
+</html>
