@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-com :msg="msg"></my-com>
+  </div>
+  <template id="myTem">
+    <h1>{{ msg }}</h1>
+  </template>
+</body>
+<script>
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:''
+    },
+    components:{
+      myCom:{
+        props:{
+          msg:{
+            type:String,
+            required:true,
+            default:'default'
+          }
+        },
+        template:'#myTem',
+      }
+    }
+  })
+</script>
+</html>

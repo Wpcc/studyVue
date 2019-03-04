@@ -9,15 +9,15 @@
 </head>
 <body>
 <div id="app">
-  <p>{{msg}}</p>
+  <p>{{ msg }}</p>
 </div>
 <script>
 var vm = new Vue({
-  el:'#app',
   data:{
     msg:'hello world'
-  }
-})
+  },
+  template:'<div>hello</div>'
+}).$mount('#app')
 </script>
 </body>
 </html>
