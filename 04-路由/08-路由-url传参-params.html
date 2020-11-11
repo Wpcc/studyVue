@@ -10,9 +10,9 @@
 </head>
 <body>
   <div id="app">
-    <router-link to='/show/?id=1'>点击传递1</router-link>
-    <router-link to='/show/?id=2'>点击传递2</router-link>
-    <router-link to='/show/?id=3'>点击传递3</router-link>
+    <router-link to='/show/1'>点击传递1</router-link>
+    <router-link to='/show/2'>点击传递2</router-link>
+    <router-link to='/show/3'>点击传递3</router-link>
     <router-view></router-view>
   </div>
   <template id="myTemp">
@@ -21,7 +21,7 @@
 </body>
 <script>
   /*
-    定义一个对象字面量
+    路由的赋值，都是生命周期函数 + 监听的方式
   */
   var show = {
     template: '#myTemp',
@@ -31,15 +31,20 @@
       }
     },
     watch: {
-      $route(value){
-        this.msg = value.query.id
+      $route(val,old){
+        console.log(val,old)
+        this.msg = val.params.id
       }
+    },
+    created(){
+      console.log(this.$route)
+      this.msg = this.$route.params.id
     }
   }
   var router = new VueRouter({
     routes: [
       {
-        path: '/show', component: show
+        path: '/show/:id', component: show
       }
     ]
   })

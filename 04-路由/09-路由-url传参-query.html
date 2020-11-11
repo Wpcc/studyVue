@@ -10,9 +10,9 @@
 </head>
 <body>
   <div id="app">
-    <router-link to='/show/1'>点击传递1</router-link>
-    <router-link to='/show/2'>点击传递2</router-link>
-    <router-link to='/show/3'>点击传递3</router-link>
+    <router-link to='/show/?id=1'>点击传递1</router-link>
+    <router-link to='/show/?id=2'>点击传递2</router-link>
+    <router-link to='/show/?id=3'>点击传递3</router-link>
     <router-view></router-view>
   </div>
   <template id="myTemp">
@@ -32,14 +32,17 @@
     },
     watch: {
       $route(value){
-        this.msg = value.params.id
+        this.msg = value.query.id
       }
+    },
+    created(){
+      this.msg = this.$route.query.id
     }
   }
   var router = new VueRouter({
     routes: [
       {
-        path: '/show/:id', component: show
+        path: '/show', component: show
       }
     ]
   })

@@ -16,11 +16,18 @@
   const login = {
     template:'<h1>this is a login component</h1>'
   }
-  var vm = new Vue({
-    el:'#app',
-    render:function(createElements){
-      return createElements(login);
-    }
-  })
+  // var vm = new Vue({
+  //   el:'#app',
+  //   render:function(createElements){
+  //     return createElements(login);
+  //   }
+  // })
+	// 简写版本
+	var vm = new Vue({
+		el:'#app',
+		render:h => {
+			h(login)
+		}
+	})
 </script>
 </html>

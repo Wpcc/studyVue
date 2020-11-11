@@ -74,41 +74,124 @@ var vm = new Vue({
 }
 ```
 
-### 查询字符串
+### 参数
 
 #### query
 
-既然是路由那么必定会有查询字符串的处理，在`vue-router`中，通过`$route`能够获取到url的路径处理，打印`$route`便可清晰地看清该对象中的方法属性。
+query对应着查询字符串，在`vue-router`中，通过`$route`能够获取到url的路径处理，打印`$route`便可清晰地看清该对象中的方法属性。
+
+**导航式路由：**
+
+**跳转：**
+
+```html
+<!-- 导航式路由 -->
+<template>
+	<div id="app">
+        <router-link to="/show?id=1">传递参数</router-link>
+    	<router-link to="/show?id=2">传递参数</router-link>
+    	<router-view></router-view>
+    </div>
+</template>
+```
+
+**处理：**
+
+如果需要赋值，使用生命周期函数 + 监听的方式：
 
 ```javascript
-//在路由生命周期created中打印一下查询字符串的值 ？id=1
-var foo = {
-    template:'<h1>hello foo</h1>',
-    created(){
-        console.log(this.$route.query.id);
+new Vue({
+    el:'#app',
+    data:{
+        msg:''
     }
-}
+    watch:{
+        $route(newVal){
+            this.msg = newVal.params.id
+        }
+    }
+    created(){
+        console.log(this.$route.query.id)
+        this.msg = this.$route.query.id
+    }
+})
 ```
+
+**编程式路由：**
+
+**跳转：**
+
+```html
+<!-- 导航式路由 -->
+<template>
+	<div @click="goPage">
+       	传递数据
+    </div>
+</template>
+<script>
+	new Vue({
+        el:'#app',
+        data:{
+            msg:''
+        },
+        methods:{
+            goPage(){
+                this.$router.push({
+                    path:'/user'， // 路由对应的path
+                    query:{
+                    	id:1
+               		}
+                })
+            }
+        }
+    })
+</script>
+```
+
+处理：
+
+和上述导航式路由一样
+
+
 
 #### params
 
-params和query方法只是url的解析不同，但共同点其实都需要$route这个对象对其进行解析。
+params通常对应着动态路由，也就是路由表是以`/user/:id`的形式，id对应着params传递的参数。当然如果路由表中没有对应的动态路由，那么在地址栏便不会出现传递参数。
 
 ```html
-<!-- html中 -->
-<!-- query -->
-<router-link to='/foo?id=1'></router-link>
-<!-- params -->
 <router-link to='/foo/1'></router-link>
 ```
 
-```javascript
-// js中
-// query
-{path:'/foo',component:foo}
-//params
-{path:'/foo/:id',component:foo}
+```html
+<!-- 编程式路由 -->
+<template>
+	<div @click="goPage">
+       	传递数据
+    </div>
+</template>
+<script>
+	new Vue({
+        el:'#app',
+        data:{
+            msg:''
+        },
+        methods:{
+            goPage(){
+                this.$router.push({
+                    path:'/user'， // 路由对应的path
+                    query:{
+                    	id:1
+               		}
+                })
+            }
+        }
+    })
+</script>
 ```
+
+#### props
+
+需要给`router-view`添加属性才能使用。
 
 ### 实现子路由
 
