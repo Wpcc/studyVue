@@ -10,6 +10,7 @@
 <body>
   <div id="app">
     <my-com :msg="msg"></my-com>
+    <button @click='change'>change</button>
   </div>
   <template id="myTem">
     <h1>{{ msg }}</h1>
@@ -23,8 +24,18 @@
     },
     components:{
       myCom:{
-        props:['msg'],
+        props:{
+          msg:{
+            type:String,
+            default:''
+          }
+        },
         template:'#myTem',
+      }
+    },
+    methods:{
+      change(){
+        this.msg = 'hello'
       }
     }
   })
